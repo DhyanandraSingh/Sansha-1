@@ -1,0 +1,27 @@
+.label-style-change {
+  font-weight: 100 !important;
+}
+
+.btnSubmit {
+  width: 95%;
+  margin-left: 6px;
+  margin-top: 810px;
+}
+
+.btnPrev,
+.btnNext {
+  margin-top:  50px;
+}
+
+.radioSelection {
+ margin-top: 60px;
+}
+
+.category {
+  cursor: pointer;
+  color: #48cfad;
+}
+
+.subcategory-item{
+  color: bisque;
+}
