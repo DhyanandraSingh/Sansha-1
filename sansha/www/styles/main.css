@@ -24,9 +24,8 @@ body {
 
 .category {
   cursor: pointer;
-  color: #48cfad;
 }
 
 .subcategory-item{
-  color: bisque;
+  color: #E3A65D;
 }
