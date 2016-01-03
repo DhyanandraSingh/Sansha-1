@@ -50,15 +50,6 @@ app.controller('myCtrl', ['$scope', '$http',
       queCategoryName: a,
       itemId: b
     });
-    
-    // $scope.selections.conc
-    
-    // angular.forEach($scope.array, function(value, key) {
-    //   $scope.selections.push(value);
-    //   console.log("AAAA", $scope.selections);
-    // })
-    
-    // console.log("AAA", $scope.array, $scope.selections)
   }
   
   $scope.radioSelection = function() {
@@ -66,6 +57,17 @@ app.controller('myCtrl', ['$scope', '$http',
 
   $scope.submitSelection = function() {
     $scope.value = $scope.selections;
+    $scope.hideSubmitButton = true;
+    $scope.disableCheckbox = true;
+    $scope.hideEditButton = true;
+    $("span").removeClass("subcategory-item");
+  }
+  
+   $scope.EditSelection = function() {
+    $scope.hideSubmitButton = false;
+    $scope.disableCheckbox = false;
+    $scope.value = false;
+     $("ul li label span").addClass("subcategory-item");
   }
   
   $scope.inc = 0;
@@ -84,7 +86,7 @@ app.controller('myCtrl', ['$scope', '$http',
 
     $scope.index += 1;
     $scope.value = false;
-    
+    $scope.hideEditButton = false;
     /*  Find Each value of category and store as Question */
     if ($scope.surveys[$scope.index].category) {
       $scope.Question = $scope.surveys[$scope.index].category;

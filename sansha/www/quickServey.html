@@ -37,8 +37,8 @@
                   <li ng-show="expand">
                     <label class="label-style-change"> 
                       <input type="checkbox" name="subCategoryName[{{$index}}]" value="{{subcategory.subCategoryName}}"
-                                                ng-click="toggleSelectionCheckbox(subcategory)">
-                        <span class="subcategory-item">{{subcategory.subCategoryName}}</span>
+                                                ng-click="toggleSelectionCheckbox(subcategory)" ng-disabled="disableCheckbox">
+                        <span class="subcategory-item" ng-disabled="disableCheckbox">{{subcategory.subCategoryName}}</span>
                     </label>
                   </li>
                 </ul>
@@ -52,9 +52,10 @@
               </ul>
             </ul>
            </div>
-           <div class="">
-             <button ng-click="submitSelection()" class="btn btn-primary btnSubmit">Submit</button>
-           </div>
+           <span>
+             <button ng-click="submitSelection()" class="btn btn-primary btnSubmit" ng-hide="hideSubmitButton" ng-disabled="!selections.length">Submit</button>
+             <button ng-click="EditSelection()" class="btn btn-info btnSubmit" ng-show="hideEditButton">Edit</button>
+           </span>
         </div>
         <!-- /#sidebar-wrapper -->
 
