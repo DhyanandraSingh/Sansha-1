@@ -53,15 +53,6 @@ app.controller('myCtrl', ['$scope', '$http',
       itemId: b
     });
   }
-  
-  $scope.nextPrevButton = {};
-  $scope.radioSelection = function() {
-    console.log("HHHHHHHHHHH",$scope.selections);
-    
-    angular.forEach($scope.selections, function(value, key) {
-      $scope.nextPrevButton = value.itemId;
-    });
-  }
 
   $scope.submitSelection = function() {
     $scope.value = $scope.selections;
@@ -85,7 +76,6 @@ app.controller('myCtrl', ['$scope', '$http',
   
   $scope.next = function() {
     $scope.inc += 1;
-    console.log("AAAA", $scope.selections)
   }
   
   $scope.prev = function() {
@@ -131,7 +121,6 @@ app.controller('myCtrl', ['$scope', '$http',
     if ($scope.array.length) {
       $scope.a = $scope.selections.concat($scope.array);
     }
-    console.log("AA", $scope.a)
   }
 
 }]);

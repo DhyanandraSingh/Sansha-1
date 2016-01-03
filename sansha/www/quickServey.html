@@ -85,11 +85,12 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-lg-offset-3">
+                <div class="col-lg-12">
                     <!-- show radio button when we click on submit button & when we have value -->
                     <div id="content-wrapper" ng-show="value">
-                        
-                        <span class="text-center"><h2>{{value[inc].subCategoryName}}</h2></span>
+                        <span class="text-center">
+                          <h2><span class="label label-default">{{value[inc].subCategoryName}}</span></h2>
+                        </span>
                         <div class="row radioSelection">
                             <div class="col-lg-4 btnPrev">
                                 <button class="btn btn-default" ng-hide="inc == 0" ng-click="prev()"><i class="glyphicon glyphicon-chevron-left"></i>Prevoius</button>
@@ -98,7 +99,7 @@
                               <div class="col-lg-4">
                                   <div ng-repeat="item in surveys[index].optionCategoryItemDto">
                                       <label class="text-center" style="cursor:pointer">
-                                          <input type="radio" name="radio" id="{{item.itemId}}" ng-value="item.itemId" ng-change="radioSelection()" ng-model="selections[inc].itemId" required> {{item.itemName}}
+                                          <input type="radio" name="radio" id="{{item.itemId}}" ng-value="item.itemId" ng-model="selections[inc].itemId" required> {{item.itemName}}
                                       </label>
                                   </div>
                                   <br/>
@@ -114,19 +115,26 @@
                     </div>
                     <!-- radio selection over-->
 
-                    <div ng-show="isQuestionTrue.length">
+                    <div class="row">
+                      <div ng-show="isQuestionTrue.length">
                         <div ng-repeat="que in isQuestionTrue">
-                            {{que.categoryName}}
-                            <div ng-repeat="item in surveys[index].optionCategoryItemDto">
-                                <label class="text-center" style="cursor:pointer">
-                                    <input type="radio" id="{{item.itemId}}" ng-value="item.itemId" ng-model="$parent.radioValue" ng-change="myClick(que.categoryId, que.categoryName, $parent.radioValue)"> {{item.itemName}}
-                                </label>
+                          <div class="col-lg-4">
+                            <h2 class="text-center"><span class="label label-default">{{que.categoryName}}</span></h2>
+                            <div ng-repeat="item in surveys[index].optionCategoryItemDto" class="isQuestionTrueRadioBtn">
+                              <label class="text-center" style="cursor:pointer">
+                                <input type="radio" id="{{item.itemId}}" ng-value="item.itemId" ng-model="$parent.radioValue" ng-change="myClick(que.categoryId, que.categoryName, $parent.radioValue)"> {{item.itemName}}
+                              </label>
                             </div>
+                          </div>
                         </div>
-                        <button ng-click="nextQuestion()">Next Question</button>
-                    </div>
+                        <div class="col-lg-6 col-lg-offset-5" style="margin-top:30px;">
+                          <button ng-click="nextQuestion()" class="btn btn-default">Next Question <i class="glyphicon glyphicon-chevron-right"></i></button>
+                        </div>
+                      </div>
+                   </div>
                 </div>
             </div>
+        </div>
         </div>
         <!-- /#wrapper -->
 

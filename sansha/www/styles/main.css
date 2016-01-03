@@ -29,3 +29,7 @@ body {
 .subcategory-item{
   color: #E3A65D;
 }
+
+.isQuestionTrueRadioBtn {
+  margin-left: 160px;
+}
