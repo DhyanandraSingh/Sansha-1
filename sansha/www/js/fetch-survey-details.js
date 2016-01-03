@@ -54,7 +54,13 @@ app.controller('myCtrl', ['$scope', '$http',
     });
   }
   
+  $scope.nextPrevButton = {};
   $scope.radioSelection = function() {
+    console.log("HHHHHHHHHHH",$scope.selections);
+    
+    angular.forEach($scope.selections, function(value, key) {
+      $scope.nextPrevButton = value.itemId;
+    });
   }
 
   $scope.submitSelection = function() {
@@ -79,6 +85,7 @@ app.controller('myCtrl', ['$scope', '$http',
   
   $scope.next = function() {
     $scope.inc += 1;
+    console.log("AAAA", $scope.selections)
   }
   
   $scope.prev = function() {

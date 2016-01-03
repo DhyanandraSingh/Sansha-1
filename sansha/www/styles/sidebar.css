@@ -67,6 +67,11 @@
     /*color: #999999;*/
 }
 
+/* margin between brand-name and category name*/
+.sidebar-nav ul {
+  margin-top: 5px;
+}
+
 .sidebar-nav li a category {
     display: block;
     text-decoration: none;
@@ -96,6 +101,7 @@
     height: 65px;
     font-size: 18px;
     line-height: 60px;
+    border-bottom: 1px solid lightskyblue;
 }
 
 .sidebar-nav > .sidebar-brand a {
@@ -144,6 +150,11 @@
     }
     
 }
+
+/* Set Question position*/
+ #wrapper {
+  margin-top: 52px;
+ }
 
 .sidebar-nav ul li .subcategory-item:hover{
   color: deepskyblue;
