@@ -1,3 +1,5 @@
+(function() {
+  
 var app = angular.module("myApp", []);
 
 app.controller('myCtrl', ['$scope', '$http',
@@ -64,10 +66,11 @@ app.controller('myCtrl', ['$scope', '$http',
   }
   
    $scope.EditSelection = function() {
+    $scope.hideEditButton = false;
     $scope.hideSubmitButton = false;
     $scope.disableCheckbox = false;
     $scope.value = false;
-     $("ul li label span").addClass("subcategory-item");
+    $("ul li label span").addClass("subcategory-item");
   }
   
   $scope.inc = 0;
@@ -125,3 +128,4 @@ app.controller('myCtrl', ['$scope', '$http',
   }
 
 }]);
+})();
