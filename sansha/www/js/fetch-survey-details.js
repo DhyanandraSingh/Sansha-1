@@ -28,7 +28,7 @@
     
     $scope.toggleSelectionCheckbox = function (value) {
       tmp = 0;
-      findAndRemove($scope.selections, 'subCategoryId', value.subCategoryId);
+      findAndRemove($scope.selections, 'subCategoryName', value.subCategoryName);
       if (tmp != 1) {
         $scope.selections.push({
           subCategoryId: value.subCategoryId,
@@ -81,7 +81,14 @@
     $scope.prev = function() {
       $scope.inc -= 1;
     }
-    
+
+    $scope.previousQuestion = function() {
+      $scope.index -= 1;
+      $scope.hideSidebarItem = false;
+       $scope.isQuestionTrue = [];
+       $scope.hideEditButton = true;
+    }
+
     $scope.nextQuestion = function() {
       $scope.length = $scope.selections.length;
       $scope.index += 1;

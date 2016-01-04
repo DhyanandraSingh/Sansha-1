@@ -26,14 +26,15 @@
                         <li class="category">
                             <a ng-click="expand=!expand">
                                 <span class="glyphicon" ng-class="{'glyphicon-plus': !expand, 'glyphicon-minus': expand}">
-                      {{cat.categoryName}}
-                    </span>
+                                  {{cat.categoryName}}
+                                </span>
                             </a>
                         </li>
                         <ul ng-repeat="subcategory in cat.categoryItemDto" class="list-unstyled">
                             <li ng-show="expand">
                                 <label class="label-style-change">
-                                    <input type="checkbox" name="subCategoryName[{{$index}}]" value="{{subcategory.subCategoryName}}" ng-click="toggleSelectionCheckbox(subcategory)" ng-disabled="disableCheckbox">
+                                    <input type="checkbox"  ng-model="subcategory.subCategoryId" ng-click="toggleSelectionCheckbox(subcategory)"
+                                           ng-disabled="disableCheckbox">
                                     <span class="subcategory-item" ng-disabled="disableCheckbox">{{subcategory.subCategoryName}}</span>
                                 </label>
                             </li>
@@ -93,7 +94,7 @@
                         </span>
                         <div class="row radioSelection">
                             <div class="col-lg-4 btnPrev">
-                                <button class="btn btn-success btn-lg" ng-hide="inc-length == 0" ng-click="prev()"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                                <button class="btn btn-success btn-lg" ng-hide="inc == 0" ng-click="prev()"><i class="glyphicon glyphicon-chevron-left"></i></button>
                             </div>
                             <form name="myForm">
                               <div class="col-lg-4">
@@ -131,6 +132,7 @@
                           </div>
                         </div>
                         <div class="col-lg-6 col-lg-offset-5" style="margin-top:30px;">
+                          <button ng-click="previousQuestion()" class="btn btn-success btn-lg"><i class="glyphicon glyphicon-backward"></i></button>
                           <button ng-click="nextQuestion()" class="btn btn-success btn-lg"><i class="glyphicon glyphicon-forward"></i></button>
                         </div>
                       </div>
