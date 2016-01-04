@@ -59,7 +59,7 @@
       $scope.hideSubmitButton = true;
       $scope.disableCheckbox = true;
       $scope.hideEditButton = true;
-      $("span").removeClass("subcategory-item");
+      $("span").removeClass("subcategory-item");      
     }
     
     $scope.EditSelection = function() {
@@ -83,7 +83,7 @@
     }
     
     $scope.nextQuestion = function() {
-
+      $scope.length = $scope.selections.length;
       $scope.index += 1;
       $scope.value = false;
       $scope.hideEditButton = false;
@@ -106,13 +106,22 @@
           // $("#wrapper").toggleClass("toggled");
         }
 
+        // Check if isQuestion is true or false
+        // if it is true, then we show all categoryName and radio button on same page, and do not show sidebar
+        // if it is false, then we have to check again
+        // 1) if subCategoryId is null or not, if it is null then we assign categoryName as a checkbox
+        // 2) if is not null, then assign categoryName and subcategoryName 
         if($scope.isQuestionTrue.length) {
           $scope.hideSidebarItem = true;
         } else {
+          $scope.inc += 1;
           $scope.hideSidebarItem = false;
           angular.forEach(value.categoryItemDto, function(value, key) {
             if (value.subCategoryId === null ) {
               $scope.checkSubCategoryValueIsNull.push(value);
+            } else {
+              $scope.hideSubmitButton = false;
+              $scope.disableCheckbox = false;
             }
           });
         }

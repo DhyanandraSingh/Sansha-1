@@ -93,7 +93,7 @@
                         </span>
                         <div class="row radioSelection">
                             <div class="col-lg-4 btnPrev">
-                                <button class="btn btn-success btn-lg" ng-hide="inc == 0" ng-click="prev()"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                                <button class="btn btn-success btn-lg" ng-hide="inc-length == 0" ng-click="prev()"><i class="glyphicon glyphicon-chevron-left"></i></button>
                             </div>
                             <form name="myForm">
                               <div class="col-lg-4">
@@ -115,15 +115,18 @@
                     </div>
                     <!-- radio selection over-->
 
-                    <div class="row">
-                      <div ng-show="isQuestionTrue.length">
-                        <div ng-repeat="que in isQuestionTrue">
-                          <div class="col-lg-4">
-                            <h2 class="text-center"><span class="label label-default">{{que.categoryName}}</span></h2>
-                            <div ng-repeat="item in surveys[index].optionCategoryItemDto" class="isQuestionTrueRadioBtn">
-                              <label class="text-center" style="cursor:pointer">
-                                <input type="radio" id="{{item.itemId}}" ng-value="item.itemId" ng-model="$parent.radioValue" ng-change="myClick(que.categoryId, que.categoryName, $parent.radioValue)"> {{item.itemName}}
-                              </label>
+                    <div ng-show="isQuestionTrue.length">
+                      <div class="myForm">
+                        <div class="row">
+                          <div ng-repeat="que in isQuestionTrue">
+                            <div class="col-lg-4">
+                              <h2 class="text-center"><span class="label label-default">{{que.categoryName}}</span></h2>
+                              <div ng-repeat="item in surveys[index].optionCategoryItemDto" class="isQuestionTrueRadioBtn">
+                                <label class="text-center" style="cursor:pointer">
+                                  <input type="radio" id="{{item.itemId}}" ng-value="item.itemId" ng-model="$parent.radioValue"
+                                        ng-change="myClick(que.categoryId, que.categoryName, $parent.radioValue)" required> {{item.itemName}}
+                                </label>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -131,7 +134,7 @@
                           <button ng-click="nextQuestion()" class="btn btn-success btn-lg"><i class="glyphicon glyphicon-forward"></i></button>
                         </div>
                       </div>
-                   </div>
+                    </div>
                 </div>
             </div>
         </div>
