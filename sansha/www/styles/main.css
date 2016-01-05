@@ -10,7 +10,7 @@ body {
 .btnSubmit {
   width: 95%;
   margin-left: 6px;
-  margin-top: 690px;
+  margin-top: 623px;
 }
 
 .btnPrev,
@@ -32,4 +32,9 @@ body {
 
 .isQuestionTrueRadioBtn {
   margin-left: 160px;
+}
+
+.textBox {
+  width: 70%;
+  margin-left: 60px;
 }

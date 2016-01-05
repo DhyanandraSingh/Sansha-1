@@ -38,7 +38,8 @@
                 questionId: QuestionId.questionId,
                 subCategoryId: value.subCategoryId,
                 subCategoryName: value.subCategoryName,
-                storeId: 1
+                storeId: 1,
+                text: ""
               });
             }
           };
@@ -61,23 +62,32 @@
       
       $scope.pre = 0;
       $scope.array = [];
-      
+      $scope.i = 0;
       $scope.myClick = function(QuestionId, id, name, radioValue) {
+        
+        var q = 0;
         for (var i = 0; i < $scope.array.length; i++) {
           if ($scope.array[i].queCategoryName === name) {
-            $scope.array.splice(i, 1);
+            q = 1;
+            $scope.array[i].itemId = radioValue;
             break;
           }
         }
-        $scope.array.push({
-          questionId: QuestionId.questionId,
-          categoryId: id,
-          queCategoryName: name,
-          itemId: radioValue,
-          storeId : 1
-        });
+        console.log("KK", id)
+        if (q === 0) {
+          $scope.i += 1;
+          $scope.array.push({
+            questionId: QuestionId.questionId,
+            categoryId: id,
+            queCategoryName: name,
+            itemId: radioValue,
+            storeId : 1,
+            text: ""
+          });
+        }
+
       }
-      
+
       $scope.EditSelection = function() {
         $scope.hideEditButton = false;
         $scope.hideSubmitButton = false;
@@ -109,35 +119,38 @@
       
       $scope.nextQuestion = function() {
         
-          if ($scope.selections[$scope.index].length == 0) {
-            $scope.newSelections = $scope.newSelections.concat($scope.array);
-          } else {
-            $scope.newSelections = $scope.newSelections.concat($scope.selections[$scope.index]);
-          }
+        if ($scope.selections[$scope.index].length == 0) {
+          $scope.newSelections = $scope.newSelections.concat($scope.array);
+        } else {
+          $scope.newSelections = $scope.newSelections.concat($scope.selections[$scope.index]);
+        }
+
         $scope.index += 1;
         $scope.inc = 0;
         $scope.value = false;
         $scope.hideEditButton = false;
+
         /*  Find Each value of category and store as Question */
         if ($scope.surveys[$scope.index] != undefined) {
           if ($scope.surveys[$scope.index].category) {
             $scope.Question = $scope.surveys[$scope.index].category;
           }
         } else {
+
          $scope.index = 0;
         //  $scope.hideSidebarItem = false;
         //  $scope.hideEditButton = true;
         //  $scope.showOnlyRadioButton = false;
         //  $scope.inc= 0;
         //  $scope.value = false;
-          // var res = $http.post("http://localhost:8080/TheSanshaWorld/sfcms/save-survey-result-data", $scope.newSelections[0]);
-          // res.success(function(data, status, headers, config) {
-          //   $scope.message = data;
-          //   alert("data"+ data);
-          // });
-          // res.error(function(data, status, headers, config) {
-          //   alert( "failure message: " + JSON.stringify({data: data}));
-          // });	
+          var res = $http.post("http://localhost:8080/TheSanshaWorld/sfcms/save-survey-result-data", $scope.newSelections[0]);
+          res.success(function(data, status, headers, config) {
+            $scope.message = data;
+            alert("data", $scope.message);
+          });
+          res.error(function(data, status, headers, config) {
+            alert( "failure message: " + JSON.stringify({data: data}));
+          });	
         console.log("AAA", $scope.newSelections);
         }
 
@@ -151,6 +164,7 @@
         angular.forEach($scope.Question, function(value, key) {
 
           if (value.isQuestion) {
+            $scope.i = 0;
             $scope.isQuestionTrue.push(value);
             // $("#wrapper").toggleClass("toggled");
           }
@@ -187,7 +201,6 @@
           method: 'GET',
           url: "http://localhost:8080/TheSanshaWorld/sfcms/fetch-survey-details"
         }).success(function(data){
-          // With the data succesfully returned, call our callback
           callbackFunc(data);
       }).error(function(){
           alert("error");
