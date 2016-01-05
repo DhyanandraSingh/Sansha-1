@@ -2,41 +2,61 @@
   
   var app = angular.module("myApp", []);
 
-  app.controller('myCtrl', ['$scope', '$http',
-      
-    function ($scope, $http) {
-    
-    $http.get("http://localhost:8080/TheSanshaWorld/sfcms/fetch-survey-details").success(function(data) {
-      $scope.surveys = data;
-    });
+  app.controller('myCtrl', ['$scope', '$http', 'myService', '$timeout',
+    function ($scope, $http, myService, $timeout) {
 
-    $scope.index = 0;
+    myService.getData(function(dataResponse) {
+
+        $scope.surveys = dataResponse;
+        
+        $scope.selections = [];
+
+        var numInternalArrays = $scope.surveys.length;
+        for (var i = 0; i < numInternalArrays; i++) {
+          $scope.selections[i] = [];
+        }
+        
+        var tmp = 0;
+        $scope.index = 0;
+      
+        function findAndRemove(array, property, value) {
+          array.forEach(function(result, index) {
+            if(result[property] === value) {
+              array.splice(index, 1);
+              tmp = 1;
+            } 
+          });
+        }
+        
+        $scope.toggleSelectionCheckbox = function (value) {
+          
+          tmp = 0;
+          if (!value) return;
+          findAndRemove($scope.selections[$scope.index], 'subCategoryName', value.subCategoryName);
+          if (tmp != 1) {
+            console.log("VVV", value)
+            $scope.selections[$scope.index].push({
+              subCategoryId: value.subCategoryId,
+              subCategoryName: value.subCategoryName,
+              storeId: 1
+            });
+          }
+        };
+        
+        $scope.submitSelection = function() {
+          $scope.value = $scope.selections[$scope.index];
+          $scope.hideSubmitButton = true;
+          $scope.disableCheckbox = true;
+          $scope.hideEditButton = true;
+          $("span").removeClass("subcategory-item");      
+        }
+        
+    });
+    
+    
     $scope.pre = 0;
 
-    $scope.selections = [];
-
-    var tmp = 0;
-
-    function findAndRemove(array, property, value) {
-      array.forEach(function(result, index) {
-        if(result[property] === value) {
-          array.splice(index, 1);
-          tmp = 1;
-        } 
-      });
-    }
-    
-    $scope.toggleSelectionCheckbox = function (value) {
-      tmp = 0;
-      findAndRemove($scope.selections, 'subCategoryName', value.subCategoryName);
-      if (tmp != 1) {
-        $scope.selections.push({
-          subCategoryId: value.subCategoryId,
-          subCategoryName: value.subCategoryName,
-          storeId: 1
-        });
-      }
-    };
+    // $scope.selections = [];
 
     $scope.array = [];
     
@@ -52,14 +72,6 @@
         queCategoryName: name,
         itemId: radioValue
       });
-    }
-
-    $scope.submitSelection = function() {
-      $scope.value = $scope.selections;
-      $scope.hideSubmitButton = true;
-      $scope.disableCheckbox = true;
-      $scope.hideEditButton = true;
-      $("span").removeClass("subcategory-item");      
     }
     
     $scope.EditSelection = function() {
@@ -88,10 +100,23 @@
        $scope.isQuestionTrue = [];
        $scope.hideEditButton = true;
     }
-
+    
+    $scope.newSelections = [];
+    
     $scope.nextQuestion = function() {
-      $scope.length = $scope.selections.length;
+      // console.log("AAA", $scope.newSelections, $scope.array)
+      console.log("AAA", $scope.selections[$scope.index].length)
+       if ($scope.selections[$scope.index].length == 0) {
+
+          $scope.newSelections = $scope.newSelections.concat($scope.array);
+        } else {
+          $scope.newSelections = $scope.newSelections.concat($scope.selections[$scope.index]);
+          
+        }
+      console.log("LLL", $scope.newSelections)
+      // $scope.length = $scope.selections[$scope.index].length;
       $scope.index += 1;
+      $scope.inc = 0;
       $scope.value = false;
       $scope.hideEditButton = false;
       /*  Find Each value of category and store as Question */
@@ -121,7 +146,8 @@
         if($scope.isQuestionTrue.length) {
           $scope.hideSidebarItem = true;
         } else {
-          $scope.inc += 1;
+          $scope.hideSubmitButton = false;
+          $scope.selections = [];
           $scope.hideSidebarItem = false;
           angular.forEach(value.categoryItemDto, function(value, key) {
             if (value.subCategoryId === null ) {
@@ -133,12 +159,31 @@
           });
         }
       });
-
-      if ($scope.array.length) {
-        $scope.newSelections = $scope.selections.concat($scope.array);
-      }
+      
+      // console.log("LLL", $scope.selections)
+      // if ($scope.array.length) {
+      //   $scope.newSelections = $scope.selections[$scope.index].concat($scope.array);
+      //   console.log("AAAAAAAAAAAA", $scope.selections[$scope.index].concat($scope.array))
+      // }
+      
+       
+        // console.log("KKKKKKKKK", $scope.newSelections)
+      // }
     }
-
   }]);
+
+  app.service('myService', function($http) {
+    this.getData = function(callbackFunc) {
+      $http({
+          method: 'GET',
+          url: "http://localhost:8080/TheSanshaWorld/sfcms/fetch-survey-details"
+        }).success(function(data){
+          // With the data succesfully returned, call our callback
+          callbackFunc(data);
+      }).error(function(){
+          alert("error");
+      });
+    }
+  });
 
 })();
