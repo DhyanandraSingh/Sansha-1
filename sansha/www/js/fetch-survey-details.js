@@ -56,6 +56,7 @@
       $scope.onlyRadioButtonGetQuestionId = function(QuestionId, a) {
         // console.log("AAA", $scope.selections[$scope.index][$scope.inc])
         $scope.selections[$scope.index][$scope.inc].questionId = QuestionId.questionId;
+        $scope.selections[$scope.index][$scope.inc].storeId = 1;
       }
       
       $scope.pre = 0;
@@ -72,7 +73,8 @@
           questionId: QuestionId.questionId,
           categoryId: id,
           queCategoryName: name,
-          itemId: radioValue
+          itemId: radioValue,
+          storeId : 1
         });
       }
       
@@ -112,7 +114,6 @@
           } else {
             $scope.newSelections = $scope.newSelections.concat($scope.selections[$scope.index]);
           }
-          console.log("LL", $scope.newSelections)
         $scope.index += 1;
         $scope.inc = 0;
         $scope.value = false;
