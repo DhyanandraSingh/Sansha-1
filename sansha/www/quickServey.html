@@ -33,7 +33,7 @@
                         <ul ng-repeat="subcategory in cat.categoryItemDto" class="list-unstyled">
                             <li ng-show="expand">
                                 <label class="label-style-change">
-                                    <input type="checkbox"  ng-model="subcategory.subCategoryId" ng-click="toggleSelectionCheckbox(subcategory)"
+                                    <input type="checkbox"  ng-model="subcategory.subCategoryId" ng-click="toggleSelectionCheckbox(surveys[index], subcategory)"
                                            ng-disabled="disableCheckbox">
                                     <span class="subcategory-item" ng-disabled="disableCheckbox">{{subcategory.subCategoryName}}</span>
                                 </label>
@@ -42,7 +42,7 @@
                     </ul>
                     <ul ng-repeat="cat in surveys[index].category" ng-show="checkSubCategoryValueIsNull.length">
                         <label class="label-style-change">
-                            <input type="checkbox" name="subCategoryName[{{$index}}]" value="{{subcategory.subCategoryName}}" ng-click="toggleSelectionCheckbox(subcategory)">
+                            <input type="checkbox" name="subCategoryName[{{$index}}]" value="{{subcategory.subCategoryName}}" ng-click="toggleSelectionCheckbox(surveys[index], subcategory)">
                             <span class="subcategory-item">{{cat.categoryName}}</span>
                         </label>
                     </ul>
@@ -87,6 +87,7 @@
                 </div>
 
                 <div class="col-lg-12">
+                  {{message}}
                     <!-- show radio button when we click on submit button & when we have value -->
                     <div id="content-wrapper" ng-show="value">
                         <span class="text-center">
@@ -125,7 +126,7 @@
                               <div ng-repeat="item in surveys[index].optionCategoryItemDto" class="isQuestionTrueRadioBtn">
                                 <label class="text-center" style="cursor:pointer">
                                   <input type="radio" id="{{item.itemId}}" ng-value="item.itemId" ng-model="$parent.radioValue"
-                                        ng-change="myClick(que.categoryId, que.categoryName, $parent.radioValue)" required> {{item.itemName}}
+                                        ng-change="myClick(surveys[index], que.categoryId, que.categoryName, $parent.radioValue)" required> {{item.itemName}}
                                 </label>
                               </div>
                             </div>
@@ -136,6 +137,16 @@
                           <button ng-click="nextQuestion()" class="btn btn-success btn-lg"><i class="glyphicon glyphicon-forward"></i></button>
                         </div>
                       </div>
+                    </div>
+                    
+                    <div ng-show="showOnlyRadioButton">
+                      <div ng-repeat="item in surveys[index].optionCategoryItemDto" class="isQuestionTrueRadioBtn">
+                        <label class="text-center" style="cursor:pointer">
+                          <input type="radio" id="{{item.itemId}}" ng-value="item.itemId" ng-model="selections[index][inc].itemId"
+                            ng-change="onlyRadioButtonGetQuestionId(surveys[index], item)" required> {{item.itemName}}
+                        </label>
+                      </div>
+                      <button ng-click="nextQuestion()" class="btn btn-success btn-lg"><i class="glyphicon glyphicon-forward"></i></button>
                     </div>
                 </div>
             </div>
