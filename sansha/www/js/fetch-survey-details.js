@@ -31,15 +31,15 @@
           
           $scope.toggleSelectionCheckbox = function (QuestionId, value) {
             tmp = 0;
-            if (!value) return;
-            findAndRemove($scope.selections[$scope.index], 'subCategoryName', value.subCategoryName);
+            if (!value) { return; } 
+            findAndRemove($scope.selections[$scope.index], 'categoryId', value.subCategoryId);
             if (tmp != 1) {
               $scope.selections[$scope.index].push({
                 questionId: QuestionId.questionId,
-                subCategoryId: value.subCategoryId,
-                subCategoryName: value.subCategoryName,
+                categoryId: value.subCategoryId,
+                categoryName: value.subCategoryName,
                 storeId: 1,
-                text: ""
+                comment: ""
               });
             }
           };
@@ -49,13 +49,12 @@
             $scope.hideSubmitButton = true;
             $scope.disableCheckbox = true;
             $scope.hideEditButton = true;
-            $("span").removeClass("subcategory-item");      
+            $("span").removeClass("subcategory-item");
           }
           
       });
       
       $scope.onlyRadioButtonGetQuestionId = function(QuestionId, a) {
-        // console.log("AAA", $scope.selections[$scope.index][$scope.inc])
         $scope.selections[$scope.index][$scope.inc].questionId = QuestionId.questionId;
         $scope.selections[$scope.index][$scope.inc].storeId = 1;
       }
@@ -63,30 +62,6 @@
       $scope.pre = 0;
       $scope.array = [];
       $scope.i = 0;
-      $scope.myClick = function(QuestionId, id, name, radioValue) {
-        
-        var q = 0;
-        for (var i = 0; i < $scope.array.length; i++) {
-          if ($scope.array[i].queCategoryName === name) {
-            q = 1;
-            $scope.array[i].itemId = radioValue;
-            break;
-          }
-        }
-        console.log("KK", id)
-        if (q === 0) {
-          $scope.i += 1;
-          $scope.array.push({
-            questionId: QuestionId.questionId,
-            categoryId: id,
-            queCategoryName: name,
-            itemId: radioValue,
-            storeId : 1,
-            text: ""
-          });
-        }
-
-      }
 
       $scope.EditSelection = function() {
         $scope.hideEditButton = false;
@@ -111,20 +86,13 @@
       $scope.previousQuestion = function() {
         $scope.index -= 1;
         $scope.hideSidebarItem = false;
-          $scope.isQuestionTrue = [];
-          $scope.hideEditButton = true;
+        $scope.isQuestionTrue = [];
+        $scope.hideEditButton = true;
       }
       
       $scope.newSelections = [];
       
       $scope.nextQuestion = function() {
-        
-        if ($scope.selections[$scope.index].length == 0) {
-          $scope.newSelections = $scope.newSelections.concat($scope.array);
-        } else {
-          $scope.newSelections = $scope.newSelections.concat($scope.selections[$scope.index]);
-        }
-
         $scope.index += 1;
         $scope.inc = 0;
         $scope.value = false;
@@ -136,22 +104,7 @@
             $scope.Question = $scope.surveys[$scope.index].category;
           }
         } else {
-
-         $scope.index = 0;
-        //  $scope.hideSidebarItem = false;
-        //  $scope.hideEditButton = true;
-        //  $scope.showOnlyRadioButton = false;
-        //  $scope.inc= 0;
-        //  $scope.value = false;
-          var res = $http.post("http://localhost:8080/TheSanshaWorld/sfcms/save-survey-result-data", $scope.newSelections[0]);
-          res.success(function(data, status, headers, config) {
-            $scope.message = data;
-            alert("data", $scope.message);
-          });
-          res.error(function(data, status, headers, config) {
-            alert( "failure message: " + JSON.stringify({data: data}));
-          });	
-        console.log("AAA", $scope.newSelections);
+          $scope.index = 0;
         }
 
         $scope.isQuestionTrue = [];
@@ -162,36 +115,39 @@
         }
 
         angular.forEach($scope.Question, function(value, key) {
-
           if (value.isQuestion) {
             $scope.i = 0;
             $scope.isQuestionTrue.push(value);
-            // $("#wrapper").toggleClass("toggled");
-          }
-
-          // Check if isQuestion is true or false
-          // if it is true, then we show all categoryName and radio button on same page, and do not show sidebar
-          // if it is false, then we have to check again
-          // 1) if subCategoryId is null or not, if it is null then we assign categoryName as a checkbox
-          // 2) if is not null, then assign categoryName and subcategoryName 
-          if($scope.isQuestionTrue.length) {
-            $scope.hideSidebarItem = true;
-          } 
-          else {
-            // $scope.hideSubmitButton = false;
-            // $scope.selections = [];
-            // $scope.hideSidebarItem = false;
-            // angular.forEach(value.categoryItemDto, function(value, key) {
-            //   if (value.subCategoryId === null ) {
-            //     $scope.checkSubCategoryValueIsNull.push(value);
-            //   } else {
-            //     $scope.hideSubmitButton = false;
-            //     $scope.disableCheckbox = false;
-            //   }
-            // });
-            $scope.showOnlyRadioButton = true;
           }
         });
+        
+        if($scope.isQuestionTrue.length) {
+          $scope.hideSidebarItem = true;
+          angular.forEach($scope.isQuestionTrue, function(value, key) {
+            $scope.selections[$scope.index].push({
+              questionId: $scope.surveys[$scope.index].questionId,
+              categoryId: value.categoryId,
+              categoryName: value.categoryName,
+              storeId: 1,
+              comment: ""
+            });
+          });
+          // $("#wrapper").toggleClass("toggled");
+        } 
+        else {
+          // $scope.hideSubmitButton = false;
+          // $scope.selections = [];
+          // $scope.hideSidebarItem = false;
+          // angular.forEach(value.categoryItemDto, function(value, key) {
+          //   if (value.subCategoryId === null ) {
+          //     $scope.checkSubCategoryValueIsNull.push(value);
+          //   } else {
+          //     $scope.hideSubmitButton = false;
+          //     $scope.disableCheckbox = false;
+          //   }
+          // });
+          $scope.showOnlyRadioButton = true;
+        }
       }
   }]);
 
