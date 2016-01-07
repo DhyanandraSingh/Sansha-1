@@ -138,7 +138,9 @@
             $scope.Question = $scope.surveys[$scope.index].category;
           }
         } else {
-          $scope.index = 0;
+          // $scope.index = 0;
+          $scope.showOnlyRadioButton = true;
+          return;
         }
 
         $scope.isQuestionTrue = [];
