@@ -5,6 +5,17 @@
   app.controller('myCtrl', ['$scope', '$http', 'myService', '$timeout',
     
     function ($scope, $http, myService, $timeout) {
+      
+      var tmp = 0;
+      
+      function findAndRemove(array, property, value) {
+        array.forEach(function(result, index) {
+          if(result[property] === value) {
+            array.splice(index, 1);
+            tmp = 1;
+          } 
+        });
+      }
 
       myService.getData(function(dataResponse) {
 
@@ -17,17 +28,7 @@
             $scope.selections[i] = [];
           }
           
-          var tmp = 0;
           $scope.index = 0;
-        
-          function findAndRemove(array, property, value) {
-            array.forEach(function(result, index) {
-              if(result[property] === value) {
-                array.splice(index, 1);
-                tmp = 1;
-              } 
-            });
-          }
           
           $scope.toggleSelectionCheckbox = function (QuestionId, value) {
             tmp = 0;
@@ -83,21 +84,54 @@
         $scope.inc -= 1;
       }
 
+      var prevFlag = 0;
+      
       $scope.previousQuestion = function() {
         $scope.index -= 1;
-        $scope.hideSidebarItem = false;
-        $scope.viewQuestionTrue = false;
-        $scope.hideEditButton = true;
+        $scope.inc = 0;
+        prevFlag = 1;
+        
+        // Check if subcategoryId is null or not
+        angular.forEach($scope.surveys[$scope.index].category, function(value){
+          
+          angular.forEach(value.categoryItemDto, function(value1) {
+            
+            if (value1.subCategoryId != undefined) {
+              
+              $scope.hideSidebarItem = false;
+              $scope.viewQuestionTrue = false;
+              $scope.hideEditButton = true;
+            
+            } else {
+              
+              if ($scope.surveys[$scope.index] != undefined) {
+                if ($scope.surveys[$scope.index].category) {
+                  $scope.Question = $scope.surveys[$scope.index].category;
+                }
+              }
+              
+              $scope.isQuestionTrue = [];
+
+              angular.forEach($scope.Question, function(value) {
+                if (value.isQuestion) {
+                  $scope.isQuestionTrue.push(value);
+                }
+              });
+              
+              $scope.showOnlyRadioButton = false;
+              $scope.viewQuestionTrue = true;
+            }
+
+          });
+
+        });
       }
-      
-      $scope.newSelections = [];
       
       $scope.nextQuestion = function() {
         $scope.index += 1;
         $scope.inc = 0;
         $scope.value = false;
         $scope.hideEditButton = false;
-        
         /*  Find Each value of category and store as Question */
         if ($scope.surveys[$scope.index] != undefined) {
           if ($scope.surveys[$scope.index].category) {
@@ -119,17 +153,26 @@
         });
         
         if($scope.isQuestionTrue.length) {
+
           $scope.viewQuestionTrue = true;
           $scope.hideSidebarItem = true;
-          angular.forEach($scope.isQuestionTrue, function(value, key) {
-            $scope.selections[$scope.index].push({
-              questionId: $scope.surveys[$scope.index].questionId,
-              categoryId: value.categoryId,
-              categoryName: value.categoryName,
-              storeId: 1,
-              comment: ""
+
+          /* if user goes previous que. and go back then not override array. so, skip this step  */
+          if (prevFlag === 0) {
+            angular.forEach($scope.isQuestionTrue, function(value, key) {
+              for(var i = 2 ; i < $scope.isQuestionTrue.length ; i++) {
+                $scope.selections[$scope.index].push({
+                  questionId: $scope.surveys[$scope.index].questionId,
+                  categoryId: value.categoryId,
+                  categoryName: value.categoryName,
+                  answer: "",
+                  storeId: 1,
+                  comment: ""
+                });
+              }
             });
-          });
+          }
+          prevFlag = 0;
           // $("#wrapper").toggleClass("toggled");
         } else {
            $scope.viewQuestionTrue = false;
@@ -145,12 +188,16 @@
           //   }
           // });
           $scope.showOnlyRadioButton = true;
-          $scope.selections[$scope.index].push({
-            questionId: $scope.surveys[$scope.index].questionId,
-            categoryId: $scope.surveys[$scope.index].categoryId,
-            categoryName: "",
-            comment: ""
-          });
+          if (prevFlag === 0) {
+            $scope.selections[$scope.index].push({
+              questionId: $scope.surveys[$scope.index].questionId,
+              categoryId: $scope.surveys[$scope.index].categoryId,
+              categoryName: "",
+              comment: "",
+              answer: "",
+              storeId: 1,
+            });
+          }
         }
       }
   }]);

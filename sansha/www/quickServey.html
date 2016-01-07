@@ -155,19 +155,25 @@
                   </div>
                     
                   <div ng-show="showOnlyRadioButton">
-                    <button ng-click="previousQuestion()" ng-show="inc == 0" class="btn btn-success btn-lg">
-                      <i class="glyphicon glyphicon-backward"></i>
-                    </button>
-                    <div ng-repeat="item in surveys[index].optionCategoryItemDto" class="isQuestionTrueRadioBtn">
-                      <label class="text-center" style="cursor:pointer">
-                        <input type="radio" id="{{item.itemId}}" ng-value="item.itemId" ng-model="selections[index][inc].answer"
-                          ng-change="onlyRadioButtonGetQuestionId(surveys[index], item)" required> {{item.itemName}}
-                      </label>
+                    <div class="col-lg-4 btnPrev">
+                      <button ng-click="previousQuestion()" ng-show="inc == 0" class="btn btn-success btn-lg">
+                        <i class="glyphicon glyphicon-backward"></i>
+                      </button>
+                    </div>
+                    <div class="col-lg-4" ng-hide="surveys[index].questionType == 2">
+                      <div ng-repeat="item in surveys[index].optionCategoryItemDto" class="isQuestionTrueRadioBtn">
+                        <label class="text-center" style="cursor:pointer">
+                          <input type="radio" id="{{item.itemId}}" ng-value="item.itemId" ng-model="selections[index][inc].answer"
+                            ng-change="onlyRadioButtonGetQuestionId(surveys[index], item)" required> {{item.itemName}}
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 btnNext">
+                      <button ng-click="nextQuestion()" class="btn btn-success btn-lg"><i class="glyphicon glyphicon-forward"></i></button>
                     </div>
                     <input type="text" class="form-control" id="text" ng-model="selections[index][inc].comment" placeholder="Write comment...">
-                    <button ng-click="nextQuestion()" class="btn btn-success btn-lg"><i class="glyphicon glyphicon-forward"></i></button>
                   </div>
-                  
+
                 </div>
             </div>
          </div>
