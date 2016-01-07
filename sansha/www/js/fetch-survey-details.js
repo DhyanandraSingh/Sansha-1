@@ -86,7 +86,7 @@
       $scope.previousQuestion = function() {
         $scope.index -= 1;
         $scope.hideSidebarItem = false;
-        $scope.isQuestionTrue = [];
+        $scope.viewQuestionTrue = false;
         $scope.hideEditButton = true;
       }
       
@@ -97,7 +97,7 @@
         $scope.inc = 0;
         $scope.value = false;
         $scope.hideEditButton = false;
-
+        
         /*  Find Each value of category and store as Question */
         if ($scope.surveys[$scope.index] != undefined) {
           if ($scope.surveys[$scope.index].category) {
@@ -110,18 +110,16 @@
         $scope.isQuestionTrue = [];
         $scope.checkSubCategoryValueIsNull = [];
 
-        if (!$scope.Question) {
-          return;
-        }
+        if (!$scope.Question) return;
 
         angular.forEach($scope.Question, function(value, key) {
           if (value.isQuestion) {
-            $scope.i = 0;
             $scope.isQuestionTrue.push(value);
           }
         });
         
         if($scope.isQuestionTrue.length) {
+          $scope.viewQuestionTrue = true;
           $scope.hideSidebarItem = true;
           angular.forEach($scope.isQuestionTrue, function(value, key) {
             $scope.selections[$scope.index].push({
@@ -133,8 +131,8 @@
             });
           });
           // $("#wrapper").toggleClass("toggled");
-        } 
-        else {
+        } else {
+           $scope.viewQuestionTrue = false;
           // $scope.hideSubmitButton = false;
           // $scope.selections = [];
           // $scope.hideSidebarItem = false;
@@ -147,6 +145,12 @@
           //   }
           // });
           $scope.showOnlyRadioButton = true;
+          $scope.selections[$scope.index].push({
+            questionId: $scope.surveys[$scope.index].questionId,
+            categoryId: $scope.surveys[$scope.index].categoryId,
+            categoryName: "",
+            comment: ""
+          });
         }
       }
   }]);
