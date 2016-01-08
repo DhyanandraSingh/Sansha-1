@@ -87,12 +87,12 @@
       var prevFlag = 0;
       
       $scope.previousQuestion = function() {
+        
         $scope.index -= 1;
         $scope.inc = 0;
         prevFlag = 1;
-        
         // Check if subcategoryId is null or not
-        angular.forEach($scope.surveys[$scope.index].category, function(value){
+        angular.forEach($scope.surveys[$scope.index].category, function(value) {
           
           angular.forEach(value.categoryItemDto, function(value1) {
             
@@ -123,8 +123,11 @@
             }
 
           });
-
-        });
+        });  
+        if ($scope.surveys[$scope.index].questionType == "2") {
+          $scope.noIndex = false;
+          $scope.showOnlyRadioButton = true;
+        }
       }
       
       $scope.nextQuestion = function() {
@@ -139,7 +142,8 @@
           }
         } else {
           // $scope.index = 0;
-          $scope.showOnlyRadioButton = true;
+          $scope.showOnlyRadioButton = false;
+          $scope.noIndex = true;
           return;
         }
 
