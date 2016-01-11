@@ -10,56 +10,60 @@
     <style>
 
     html, body {
-    height:100%;
-    margin:0;
-    padding:0;
-}
-header{
-    width: 100%;
-    background: yellow;
-    position: fixed;
-    top: 0;
-    height: 60px !important;
-    opacity:.8;
-}
+        height:100%;
+        margin:0;
+        padding:0;
+    }
+    header{
+        width: 100%;
+        background: yellow;
+        position: fixed;
+        top: 0;
+        height: 60px !important;
+        opacity:.8;
+    }
 
-.content {
-    position:relative;
-    height: 100%;
-    width:250px; /* Sizing - any length */
-    padding:60px 0 30px 0; /* Header height and footer height */
-    -moz-box-sizing:border-box;
-    -webkit-box-sizing:border-box;
-    -o-box-sizing:border-box;
-    -ms-box-sizing:border-box;
-    box-sizing:border-box;
-}
+    .content {
+        position:absolute;
+        height: 100%;
+        margin-left: 0px;
+        width: 600px; /* Sizing - any length */
+        padding:60px 0 30px 0; /* Header height and footer height */
+        margin:0 auto 0 auto; /* Center content */
+        -moz-box-sizing:border-box;
+        -webkit-box-sizing:border-box;
+        -o-box-sizing:border-box;
+        -ms-box-sizing:border-box;
+        box-sizing:border-box;
+        padding-left: 0px !important;
+    }
 
-#scrollable2 {
-    background:green;
-    height: 100%;
-    min-width: 300px;
-    overflow:auto;
-    -moz-box-sizing:border-box;
-    -webkit-box-sizing:border-box;
-    -o-box-sizing:border-box;
-    -ms-box-sizing:border-box;
-    box-sizing:border-box;
-}
+    #scrollable2 {
+        background:green;
+        height: 100%;
+        min-width: 300px;
+        margin-right: 100px;
+        overflow:auto;
+        -moz-box-sizing:border-box;
+        -webkit-box-sizing:border-box;
+        -o-box-sizing:border-box;
+        -ms-box-sizing:border-box;
+        box-sizing:border-box;
+    }
 
-footer {
-    width: 100%;
-    background: yellow;
-    position: fixed;
-    bottom: 0;
-    height: 30px;
-}
+    footer {
+        width: 100%;
+        background: yellow;
+        position: fixed;
+        bottom: 0;
+        height: 30px;
+    }
 
 </style>
 <link rel="stylesheet" href="styles/all.css">
     <script src="libs/angular.min.js"></script>
     <script src="js/fetch-survey-details.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="libs/bootstrap/bootstrap/js/bootstrap.min.js"></script>
 
 
@@ -67,45 +71,65 @@ footer {
 
 <body ng-controller="myCtrl">
 
+  <!-- Always on top: Position Fixed-->
   <header>
-    <a href="#menu-toggle" class="btn btn-default" style="float:right;" id="menu-toggle">Toggle Menu</a>
-    <h2>{{surveys[index].questionTitle}}</h2>
+      header
+      <span id="menu-toggle" class="glyphicon glyphicon-align-justify btn btn-default" style="float:right"></span>
   </header>
   <!-- Fixed size after header-->
   <div class="content" id="wrapper">
+      <!-- Always on top. Fixed position, fixed width, relative to content width-->
 
-    <!-- Scrollable div with main content -->
-    <div id="scrollable2">
-      <ul ng-repeat="cat in surveys[index].category" class="list-unstyled" ng-hide="checkSubCategoryValueIsNull.length">
-        <li class="category">
-            <a ng-click="expand=!expand">
-                <span class="glyphicon" ng-class="{'glyphicon-plus': !expand, 'glyphicon-minus': expand}">
-                  {{cat.categoryName}}
-                </span>
-            </a>
-        </li>
-        <ul ng-repeat="subcategory in cat.categoryItemDto" class="list-unstyled">
-            <li ng-show="expand">
-                <label class="label-style-change">
-                    <input type="checkbox" ng-click="toggleSelectionCheckbox(surveys[index], subcategory)"
-                    ng-model="subcategory.selectValue" ng-disabled="disableCheckbox">
-                    <span class="subcategory-item" ng-disabled="disableCheckbox">{{subcategory.subCategoryName}}</span>
-                </label>
-            </li>
-        </ul>
-      </ul>
-    </div>
+      <!-- Scrollable div with main content -->
+      <div id="scrollable2">
+        <div id="sidebar-wrapper">
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+          content-main<br>
+        </div>
+      </div>
+      <!-- Always on top. Fixed position, fixed width, relative to content width -->
 
   </div>
   <!-- Always at the end of the page -->
   <footer>
-    footer
+      footer
   </footer>
 
   <script>
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
+        $(".content").toggleClass("toggled");
+
+
     });
   </script>
 
