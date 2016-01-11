@@ -8,50 +8,47 @@
     <title>Sansha World</title>
 
     <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
 
-    html, body {
-        height:100%;
-        margin:0;
-        padding:0;
-    }
-    header{
-      width: 100%;
-background: yellow;
-position: fixed;
-top: 0;
-height: 60px !important;
-opacity: .8;
-    }
+        header {
+            width: 100%;
+            background: yellow;
+            position: fixed;
+            top: 0;
+            height: 60px !important;
+            opacity: .8;
+        }
 
-    .content {
-      position: absolute;
-height: 100%;
-margin-left: 0px;
-width: 100%;
-padding: 60px 0 30px 0;
-margin: 0 auto 0 auto;
--moz-box-sizing: border-box;
--webkit-box-sizing: border-box;
--o-box-sizing: border-box;
--ms-box-sizing: border-box;
-box-sizing: border-box;
-padding-left: 0px !important;
-    }
-/*
-    #scrollable2 {
-        height: 100%;
-    }*/
+        .content {
+            position: absolute;
+            height: 100%;
+            margin-left: 0px;
+            width: 100%;
+            padding: 60px 0 30px 0;
+            margin: 0 auto 0 auto;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -o-box-sizing: border-box;
+            -ms-box-sizing: border-box;
+            box-sizing: border-box;
+            padding-left: 0px !important;
+        }
 
-    footer {
-        width: 100%;
-        background: yellow;
-        position: fixed;
-        bottom: 0;
-        height: 30px;
-    }
+        footer {
+            width: 100%;
+            background: yellow;
+            position: fixed;
+            bottom: 0;
+            height: 30px;
+        }
 
-</style>
-<link rel="stylesheet" href="styles/all.css">
+    </style>
+    <link rel="stylesheet" href="styles/all.css">
     <script src="libs/angular.min.js"></script>
     <script src="js/fetch-survey-details.js"></script>
     <script src="http://ironsummitmedia.github.io/startbootstrap-simple-sidebar/js/jquery.js"></script>
@@ -61,79 +58,82 @@ padding-left: 0px !important;
 </head>
 
 <body ng-controller="myCtrl">
-  <body>
 
-    <header>
-    header
-</header>
+    <body>
 
-<div class="content">
-      <div id="wrapper" style="height: 100%;position: fixed;">
+        <header>
+            <h2 style="text-align:center;">{{surveys[index].questionTitle}}</h2>
+        </header>
 
-          <!-- Sidebar -->
-          <div id="sidebar-wrapper">
-              <ul class="sidebar-nav">
-                  <li class="sidebar-brand">
-                      <a href="#">
-                          Start Bootstrap
-                      </a>
-                  </li>
-                  <li>
-                      <a href="#">Dashboard</a>
-                  </li>
-                  <li>
-                      <a href="#">Shortcuts</a>
-                  </li>
-                  <li>
-                      <a href="#">Overview</a>
-                  </li>
-                  <li>
-                      <a href="#">Events</a>
-                  </li>
-                  <li>
-                      <a href="#">About</a>
-                  </li>
-                  <li>
-                      <a href="#">Services</a>
-                  </li>
-                  <li>
-                      <a href="#">Contact</a>
-                  </li>
-              </ul>
-          </div>
-          <!-- /#sidebar-wrapper -->
+        <div class="content">
+            <div id="wrapper" style="height: 100%;position: fixed;">
 
-          <!-- Page Content -->
-          <div id="page-content-wrapper">
-              <div class="container-fluid">
-                  <div class="row">
-                      <div class="col-lg-12">
-                          <h1>Simple Sidebar</h1>
-                          <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                          <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-                          <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <!-- /#page-content-wrapper -->
+                <!-- Sidebar -->
+                <div id="sidebar-wrapper">
+                  <ul class="sidebar-nav" ng-hide="hideSidebarItem">
+                <li class="sidebar-brand" style="color:#F5F7FA">
+                Choose Category
+                </li>
+                <ul ng-repeat="cat in surveys[index].category" class="list-unstyled" ng-hide="checkSubCategoryValueIsNull.length">
+                    <li class="category">
+                        <a ng-click="expand=!expand">
+                            <span class="glyphicon" ng-class="{'glyphicon-plus': !expand, 'glyphicon-minus': expand}">
+                              {{cat.categoryName}}
+                            </span>
+                        </a>
+                    </li>
+                    <ul ng-repeat="subcategory in cat.categoryItemDto" class="list-unstyled">
+                        <li ng-show="expand">
+                            <label class="label-style-change">
+                                <input type="checkbox" ng-click="toggleSelectionCheckbox(surveys[index], subcategory)"
+                                ng-model="subcategory.selectValue" ng-disabled="disableCheckbox">
+                                <span class="subcategory-item" ng-disabled="disableCheckbox">{{subcategory.subCategoryName}}</span>
+                            </label>
+                        </li>
+                    </ul>
+                </ul>
+                <ul ng-repeat="cat in surveys[index].category" ng-show="checkSubCategoryValueIsNull.length">
+                    <label class="label-style-change">
+                        <input type="checkbox" name="subCategoryName[{{$index}}]" value="{{subcategory.subCategoryName}}" ng-click="toggleSelectionCheckbox(surveys[index], subcategory)">
+                        <span class="subcategory-item">{{cat.categoryName}}</span>
+                    </label>
+                </ul>
+            </ul>
+                </div>
+                <!-- /#sidebar-wrapper -->
 
-      </div>
-      <!-- /#wrapper -->
+                <!-- Page Content -->
+                <div id="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h1>Simple Sidebar</h1>
+                                <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                                <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                                <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /#page-content-wrapper -->
 
-</div>
+            </div>
+            <!-- /#wrapper -->
 
-<footer>
-    footer
-</footer>
-      <!-- Menu Toggle Script -->
-      <script>
-      $("#menu-toggle").click(function(e) {
-          e.preventDefault();
-          $("#wrapper").toggleClass("toggled");
-      });
-      </script>
+        </div>
 
-  </body>
+        <footer>
+            footer
+        </footer>
+        <!-- Menu Toggle Script -->
+        <script>
+            $("#menu-toggle").click(function(e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+
+        </script>
+
+    </body>
 
 </html>
