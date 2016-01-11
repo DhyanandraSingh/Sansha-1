@@ -21,9 +21,10 @@
             position: fixed;
             top: 0;
             /*height: 60px !important;*/
-            opacity: .8;
-            background: rgba(128, 173, 223, 0.9);
-        }
+            /*opacity: .8;*/
+            /*background: rgba(128, 173, 223, 0.9);*/
+            background: rgba(18, 47, 72, 0.71);
+          }
 
         .content {
             position: absolute;
@@ -49,6 +50,18 @@
             padding: 10px;
             background: rgba(128, 173, 223, 0.9);
         }
+
+        .btnToggle {
+          float: left;
+          background-color: rgba(95, 160, 207, 0.55);
+          border-color: rgba(83, 167, 161, 0.65);
+          /* width: 5%; */
+          font-size: 35px;
+          z-index: 1000;
+          cursor: pointer;
+          border: 1px solid #93988A;
+          margin-top: 12px;
+        }
     </style>
     <link rel="stylesheet" href="styles/all.css">
     <script src="libs/angular.min.js"></script>
@@ -64,11 +77,12 @@
     <body>
 
         <header class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-            <h2 style="text-align:center;">{{surveys[index].questionTitle}}</h2>
+          <span id="menu-toggle" class="glyphicon glyphicon-align-justify btnToggle" ng-hide="toggleHide"></span>
+          <h2 style="text-align:center;color: #17EFEA;">{{surveys[index].questionTitle}}</h2>
         </header>
 
         <div class="content container-fluid">
-            <div id="wrapper" style="height: 100%;position: fixed;" class="conatainer-fluid">
+            <div id="wrapper" style="height: 100%;position:fixed;width:100%" class="conatainer-fluid">
                 <!-- Sidebar -->
                 <div id="sidebar-wrapper" class="col-xs-8 col-md-4 col-sm-4 col-lg-4">
                     <div id="first">
@@ -80,8 +94,8 @@
                                 <li class="category">
                                     <a ng-click="expand=!expand">
                                         <span class="glyphicon" ng-class="{'glyphicon-plus': !expand, 'glyphicon-minus': expand}">
-                              {{cat.categoryName}}
-                            </span>
+                                          {{cat.categoryName}}
+                                        </span>
                                     </a>
                                 </li>
                                 <ul ng-repeat="subcategory in cat.categoryItemDto" class="list-unstyled">
@@ -113,11 +127,76 @@
                 <div id="page-content-wrapper" class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-12">
-                                <h1>Simple Sidebar</h1>
-                                <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                                <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-                                <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                            <div>
+                              <!-- show radio button when we click on submit button & when we have value -->
+                              <div id="content-wrapper" ng-show="value">
+                                <span class="text-center col-lg-offset-1 col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                                  <h2 style="margin: 7% 0 7% 0%;"><span class="label">{{value[inc].categoryName}}</span></h2>
+                                </span>
+                                <div class="row radioSelection">
+                                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 btnPrev">
+                                    <button class="btn btn-lg btnNext" ng-hide="inc == 0" ng-click="prev()"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                                  </div>
+                                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    <form name="myForm" style="margin-left:14%;">
+                                      <div ng-repeat="item in surveys[index].optionCategoryItemDto" style="margin-bottom:2%;">
+                                        <label class="text-center" style="cursor:pointer">
+                                          <input type="radio" name="radio" id="{{item.itemId}}" ng-value="item.itemId" ng-model="selections[index][inc].answer" required> {{item.itemName}}
+                                        </label>
+                                      </div>
+                                      <br/>
+                                      <br/>
+                                    </form>
+                                  </div>
+                                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                      <button class="btn btn-lg btnNext" ng-hide="selections[index].length == inc + 1" ng-disabled="myForm.radio.$error.required" ng-click="next()"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                                      <button class="btn btn-lg btnNext" ng-show="selections[index].length == inc + 1" ng-disabled="myForm.radio.$error.required" ng-click="nextQuestion()"><i class="glyphicon glyphicon-forward"></i></button>
+                                  </div>
+                                </div>
+                                <div class="text-center col-lg-offset-3 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-4">
+                                <textarea type="text" id="text"  class="form-control txtArea" ng-model="selections[index][inc].comment" placeholder="Write comment..."></textarea>
+                              </div>
+                              </div>
+
+                              <div id="content-wrapper" ng-show="viewQuestionTrue" class="row">
+                                <span class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <h2><span class="label label-default">{{isQuestionTrue[inc].categoryName}}</span></h2>
+                                </span>
+                                <div class="row radioSelection">
+                                  <div class="col-lg-4 btnPrev">
+                                      <button class="btn btn-success btn-lg" ng-hide="inc == 0" ng-click="prev()">
+                                        <i class="glyphicon glyphicon-chevron-left"></i>
+                                      </button>
+                                      <button ng-click="previousQuestion()" ng-show="inc == 0" class="btn btn-success btn-lg">
+                                        <i class="glyphicon glyphicon-backward"></i>
+                                      </button>
+                                  </div>
+                                  <form name="myForm">
+                                    <div class="col-lg-4">
+                                        <div ng-repeat="item in surveys[index].optionCategoryItemDto">
+                                          <label class="text-center" style="cursor:pointer">
+                                              <input type="radio" name="radio" id="{{item.itemId}}" ng-model="selections[index][inc].answer"
+                                              ng-value="item.itemId" required> {{item.itemName}}
+                                          </label>
+                                        </div>
+                                        <br/>
+                                        <br/>
+                                        <input type="text" class="form-control" id="text" ng-model="selections[index][inc].comment" placeholder="Write comment...">
+                                    </div>
+                                  </form>
+                                  <div class="col-lg-4 btnNext">
+                                    <button class="btn btn-success btn-lg" ng-hide="isQuestionTrue.length == inc + 1" ng-disabled="myForm.radio.$error.required" ng-click="next()">
+                                      <i class="glyphicon glyphicon-chevron-right"></i>
+                                    </button>
+                                    <button class="btn btn-success btn-lg" ng-show="isQuestionTrue.length == inc + 1" ng-disabled="myForm.radio.$error.required"
+                                            ng-click="nextQuestion()">
+                                      <i class="glyphicon glyphicon-forward"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -133,13 +212,12 @@
           Designed and built with all the love in the world by NxtLifeTechnolgy. Maintained by the core team with the help of our contributors.
           Code licensed MIT, docs CC BY 3.0.
         </footer> -->
-        <!-- Menu Toggle Script -->
-        <script>
-            $("#menu-toggle").click(function(e) {
-                e.preventDefault();
-                $("#wrapper").toggleClass("toggled");
-            });
 
+        <script>
+          $("#menu-toggle").click(function(e) {
+              e.preventDefault();
+              $("#wrapper").toggleClass("toggled");
+          });
         </script>
 
     </body>

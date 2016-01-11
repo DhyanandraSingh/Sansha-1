@@ -8,13 +8,14 @@ body {
   font-weight: 100 !important;
 }
 
-.btnPrev,
 .btnNext {
-  margin-top: 20px;
+  background: rgb(75, 93, 111);
+  border: none;
 }
 
-.radioSelection {
- /*margin-top: 60px;*/
+.btnNext i {
+  font-size: 100px;
+  color: rgba(18, 109, 109, 0.73);
 }
 
 .category {
@@ -22,16 +23,16 @@ body {
 }
 
 .subcategory-item{
-  color: #F5F7FA;
+  color: rgb(188, 188, 148);
 }
 
 .isQuestionTrueRadioBtn {
   margin-left: 160px;
 }
 
-.textBox {
-  width: 70%;
-  margin-left: 60px;
+.txtArea {
+  border: 1px solid black;
+  height: 100px;
 }
 
 .panel-heading {
@@ -96,7 +97,8 @@ body {
   text-decoration: none;
   bottom: 0;
   width: 85%;
-      margin: 13% 3% 1% 7%;
+  border-radius: 4px;
+  margin: 13% 3% 1% 7%;
 }
 
 .btnSubmit:hover {
@@ -123,4 +125,8 @@ body {
 #mainHeader #wrapper {
   height: 80%;
   width: 100%;
+}
+
+.label {
+  color: #63C2C0 !important;
 }
