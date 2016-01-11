@@ -14,46 +14,56 @@
 </head>
 
 <body ng-controller="myCtrl">
-    <div id="wrapper">
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <div class="">
-                <ul class="sidebar-nav" ng-hide="hideSidebarItem">
-                    <li class="sidebar-brand" style="color:darksalmon">
-                    Choose Category:
-                    </li>
-                    <ul ng-repeat="cat in surveys[index].category" class="list-unstyled" ng-hide="checkSubCategoryValueIsNull.length">
-                        <li class="category">
-                            <a ng-click="expand=!expand">
-                                <span class="glyphicon" ng-class="{'glyphicon-plus': !expand, 'glyphicon-minus': expand}">
-                                  {{cat.categoryName}}
-                                </span>
-                            </a>
-                        </li>
-                        <ul ng-repeat="subcategory in cat.categoryItemDto" class="list-unstyled">
-                            <li ng-show="expand">
-                                <label class="label-style-change">
-                                    <input type="checkbox" ng-click="toggleSelectionCheckbox(surveys[index], subcategory)" 
-                                    ng-model="subcategory.selectValue" ng-disabled="disableCheckbox">
-                                    <span class="subcategory-item" ng-disabled="disableCheckbox">{{subcategory.subCategoryName}}</span>
-                                </label>
-                            </li>
-                        </ul>
-                    </ul>
-                    <ul ng-repeat="cat in surveys[index].category" ng-show="checkSubCategoryValueIsNull.length">
-                        <label class="label-style-change">
-                            <input type="checkbox" name="subCategoryName[{{$index}}]" value="{{subcategory.subCategoryName}}" ng-click="toggleSelectionCheckbox(surveys[index], subcategory)">
-                            <span class="subcategory-item">{{cat.categoryName}}</span>
-                        </label>
-                    </ul>
-                </ul>
-            </div>
-            <div class="">
-                <button ng-click="submitSelection()" class="btn btn-primary btnSubmit" ng-hide="hideSubmitButton" ng-disabled="!selections[index].length">Submit</button>
-                <button ng-click="EditSelection()" class="btn btn-primary btnSubmit" ng-show="hideEditButton">Edit</button>
-            </div>
+  <div id="mainHeader">
+  <div id="question-header">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div ng-hide="noIndex">
+        <div class="main">
+          <h2>{{surveys[index].questionTitle}}</h2>
         </div>
-        <!-- /#sidebar-wrapper -->
+      </div>
+    </div>
+  </div>
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper">
+          <div style="height:90%; margin-top:3%;padding-left:0px;" class="col-lg-3 col-sm-3 col-md-3">
+              <ul class="sidebar-nav" ng-hide="hideSidebarItem">
+                  <li class="sidebar-brand" style="color:#F5F7FA">
+                  Choose Category
+                  </li>
+                  <ul ng-repeat="cat in surveys[index].category" class="list-unstyled" ng-hide="checkSubCategoryValueIsNull.length">
+                      <li class="category">
+                          <a ng-click="expand=!expand">
+                              <span class="glyphicon" ng-class="{'glyphicon-plus': !expand, 'glyphicon-minus': expand}">
+                                {{cat.categoryName}}
+                              </span>
+                          </a>
+                      </li>
+                      <ul ng-repeat="subcategory in cat.categoryItemDto" class="list-unstyled">
+                          <li ng-show="expand">
+                              <label class="label-style-change">
+                                  <input type="checkbox" ng-click="toggleSelectionCheckbox(surveys[index], subcategory)"
+                                  ng-model="subcategory.selectValue" ng-disabled="disableCheckbox">
+                                  <span class="subcategory-item" ng-disabled="disableCheckbox">{{subcategory.subCategoryName}}</span>
+                              </label>
+                          </li>
+                      </ul>
+                  </ul>
+                  <ul ng-repeat="cat in surveys[index].category" ng-show="checkSubCategoryValueIsNull.length">
+                      <label class="label-style-change">
+                          <input type="checkbox" name="subCategoryName[{{$index}}]" value="{{subcategory.subCategoryName}}" ng-click="toggleSelectionCheckbox(surveys[index], subcategory)">
+                          <span class="subcategory-item">{{cat.categoryName}}</span>
+                      </label>
+                  </ul>
+              </ul>
+          </div>
+          <div class="btnSidebar" style="height:10%;">
+              <button ng-click="submitSelection()" class="btnSubmit" ng-hide="hideSubmitButton" ng-disabled="!selections[index].length">Submit</button>
+              <button ng-click="EditSelection()" class="btn btn-primary btnSubmit" ng-show="hideEditButton">Edit</button>
+          </div>
+      </div>
+      <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
@@ -73,19 +83,10 @@
         </div>
         <!-- /#page-content-wrapper -->
 
+
+
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12">
-                    <!-- Show Question -->
-                    <div class="panel-question text-center" ng-hide="noIndex">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h2>{{surveys[index].questionTitle}}</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="col-lg-12">
                   <!-- show radio button when we click on submit button & when we have value -->
                   <div id="content-wrapper" ng-show="value">
@@ -153,7 +154,7 @@
                       </div>
                     </div>
                   </div>
-                    
+
                   <div ng-show="showOnlyRadioButton">
                     <div class="col-lg-4 btnPrev">
                       <button ng-click="previousQuestion()" ng-show="inc == 0" class="btn btn-success btn-lg">
@@ -178,7 +179,7 @@
 
                 </div>
             </div>
-            
+
             <div class="row" ng-show="noIndex">
               <div class="col-md-6">
                 <form name="MyForm" class="form-style" ng-submit="addValue(my)">
@@ -204,11 +205,11 @@
                 </button>
               </div>
             </div>
-            
+
          </div>
       </div>
       <!-- /#wrapper -->
-
+    </div>
       <!-- Menu Toggle Script -->
       <script>
         $("#menu-toggle").click(function(e) {

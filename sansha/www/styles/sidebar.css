@@ -12,19 +12,22 @@
 }
 
 #sidebar-wrapper {
-    z-index: 1000;
-    position: fixed;
-    left: 250px;
-    width: 0;
-    height: 100%;
-    top: 50px;
-    margin-left: -250px;
-    overflow-y: auto;
-    background: #000;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+  z-index: 1000;
+  position: fixed;
+  left: 265px;
+  /*width: 0;
+  height: 84%;*/
+  top: 11%;
+  border-bottom: 2px solid #F10909;
+  margin-left: -250px;
+  /* margin-bottom: 10%; */
+  overflow-y: auto;
+  background: #555;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  border-radius: 0 10px 0 0;
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -45,15 +48,15 @@
 /* Sidebar Styles */
 
 .sidebar-nav {
-    position: absolute;
-    top: 0;
-    width: 250px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    height: 88%;
-    overflow-x: hidden;
-    overflow-y: auto;
+  position: absolute;
+  top: 0;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  height: 87%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .sidebar-nav li {
@@ -70,6 +73,7 @@
 /* margin between brand-name and category name*/
 .sidebar-nav ul {
   margin-top: 5px;
+      background-color: #2B353A;
 }
 
 .sidebar-nav li a category {
@@ -79,7 +83,7 @@
 }
 
 .sidebar-nav ul li a span {
-    color: #E968FC;
+    color: #48cfad;
     font-family: monospace;
     font-size: 18px;
 }
@@ -98,8 +102,9 @@
 }
 
 .sidebar-nav > .sidebar-brand {
-    height: 65px;
+    /*height: 65px;*/
     font-size: 18px;
+    text-align: center;
     line-height: 60px;
     border-bottom: 1px solid lightskyblue;
 }
@@ -128,7 +133,13 @@
     }
 
     #sidebar-wrapper {
-        width: 250px;
+      width: 250px;
+      height: 86%;
+      margin-top: 3%;
+    }
+
+    #sidebar-wrapper .btnSidebar {
+      width: 266px;
     }
 
     #wrapper.toggled #sidebar-wrapper {
@@ -144,18 +155,9 @@
         position: relative;
         margin-right: 0;
     }
-    
-    .btnSubmit {
-      margin-top: 623px;
-    }
-    
 }
 
 /* Set Question position*/
- #wrapper {
-  margin-top: 52px;
- }
-
 .sidebar-nav ul li .subcategory-item:hover{
   cursor: pointer;
 }
@@ -168,7 +170,7 @@
 }
 
 .sidebar-nav ul ul li label:hover {
-  background-color: darkslategrey;
+  background-color: #48cfad;
   cursor: pointer;
   margin-left: 0px;
 }
