@@ -14,22 +14,22 @@
             margin: 0;
             padding: 0;
         }
-        
+
         header {
             width: 100%;
             background: yellow;
             position: fixed;
             top: 0;
-            height: 60px !important;
+            /*height: 60px !important;*/
             opacity: .8;
         }
-        
+
         .content {
             position: absolute;
             height: 100%;
             margin-left: 0px;
             width: 100%;
-            padding: 60px 0 30px 0;
+            padding: 63px 0 30px 0;
             margin: 0 auto 0 auto;
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
@@ -38,7 +38,7 @@
             box-sizing: border-box;
             padding-left: 0px !important;
         }
-        
+
         footer {
             width: 100%;
             background: yellow;
@@ -61,15 +61,14 @@
 
     <body>
 
-        <header>
+        <header class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
             <h2 style="text-align:center;">{{surveys[index].questionTitle}}</h2>
         </header>
 
-        <div class="content">
-            <div id="wrapper" style="height: 100%;position: fixed;">
-
+        <div class="content container-fluid">
+            <div id="wrapper" style="height: 100%;position: fixed;" class="conatainer-fluid">
                 <!-- Sidebar -->
-                <div id="sidebar-wrapper">
+                <div id="sidebar-wrapper" class="col-xs-8">
                     <div id="first">
                         <ul class="sidebar-nav" ng-hide="hideSidebarItem">
                             <li class="sidebar-brand" style="color:#F5F7FA">
@@ -109,7 +108,7 @@
                 <!-- /#sidebar-wrapper -->
 
                 <!-- Page Content -->
-                <div id="page-content-wrapper">
+                <div id="page-content-wrapper" col-lg-9 col-md-9 col-sm-9 col-xs-9>
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-12">
