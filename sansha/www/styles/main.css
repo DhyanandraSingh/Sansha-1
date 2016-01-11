@@ -82,39 +82,30 @@ body {
 }
 
 .btnSubmit {
-  background: #9a9b9c;
-  background-image: -webkit-linear-gradient(top, #9a9b9c, #448fbd);
-  background-image: -moz-linear-gradient(top, #9a9b9c, #448fbd);
-  background-image: -ms-linear-gradient(top, #9a9b9c, #448fbd);
-  background-image: -o-linear-gradient(top, #9a9b9c, #448fbd);
-  background-image: linear-gradient(to bottom, #9a9b9c, #448fbd);
-  -webkit-border-radius: 9;
-  -moz-border-radius: 9;
-  border-radius: 9px;
-  text-shadow: 1px 1px 3px #b395b3;
-  -webkit-box-shadow: 0px 1px 3px #bd37bd;
-  -moz-box-shadow: 0px 1px 3px #bd37bd;
-  box-shadow: 0px 1px 3px #bd37bd;
+  -webkit-border-radius: 1;
+  -moz-border-radius: 1;
+  border-radius: 1px;
+  text-shadow: 1px 1px 2px #f2e6f2;
   font-family: Arial;
-  color: #09112e;
+  color: #0c2333;
   font-size: 20px;
+  box-shadow: 0px 1px 3px #9e189e;
+  background: #c3def0;
   padding: 10px 20px 10px 20px;
-  border: solid #1f628d 2px;
+  border: solid #5892b3 1px;
   text-decoration: none;
-  position: fixed;
-bottom: 0;
+  bottom: 0;
+  width: 85%;
+      margin: 13% 3% 1% 7%;
 }
 
 .btnSubmit:hover {
-  background: #9ab7c9;
-  background-image: -webkit-linear-gradient(top, #9ab7c9, #1596e6);
-  background-image: -moz-linear-gradient(top, #9ab7c9, #1596e6);
-  background-image: -ms-linear-gradient(top, #9ab7c9, #1596e6);
-  background-image: -o-linear-gradient(top, #9ab7c9, #1596e6);
-  background-image: linear-gradient(to bottom, #9ab7c9, #1596e6);
+  background: #53a4cf;
   text-decoration: none;
   cursor: pointer;
+  color: #4B3A79;
 }
+
 
 #mainHeader {
   height: 100%;
