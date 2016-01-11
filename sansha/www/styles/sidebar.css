@@ -4,7 +4,7 @@
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
-    margin-top: 100px;
+    /*margin-top: 100px;*/
 }
 
 #wrapper.toggled {
@@ -17,7 +17,7 @@
   left: 265px;
   /*width: 0;
   height: 84%;*/
-  top: 11%;
+  /*top: 11%;*/
   border-bottom: 2px solid #F10909;
   margin-left: -250px;
   /* margin-bottom: 10%; */
@@ -135,7 +135,7 @@
     #sidebar-wrapper {
       width: 250px;
       height: 86%;
-      margin-top: 3%;
+      /*margin-top: 3%;*/
     }
 
     #sidebar-wrapper .btnSidebar {
