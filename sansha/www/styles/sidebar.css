@@ -22,10 +22,10 @@
   z-index: 1000;
 left: 250px;
 position: fixed;
-height: 100%;
+height: 106%;
 margin-left: -250px;
 overflow-y: auto;
-background: #000;
+background: rgba(18, 47, 72, 0.71);;
 padding-left: 0px !important;
 padding-right: 0px !important;
 -webkit-transition: all 0.5s ease;

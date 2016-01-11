@@ -22,6 +22,7 @@
             top: 0;
             /*height: 60px !important;*/
             opacity: .8;
+            background: rgba(128, 173, 223, 0.9);
         }
 
         .content {
@@ -45,8 +46,9 @@
             position: fixed;
             bottom: 0;
             height: 30px;
+            padding: 10px;
+            background: rgba(128, 173, 223, 0.9);
         }
-
     </style>
     <link rel="stylesheet" href="styles/all.css">
     <script src="libs/angular.min.js"></script>
@@ -68,7 +70,7 @@
         <div class="content container-fluid">
             <div id="wrapper" style="height: 100%;position: fixed;" class="conatainer-fluid">
                 <!-- Sidebar -->
-                <div id="sidebar-wrapper" class="col-xs-8">
+                <div id="sidebar-wrapper" class="col-xs-8 col-md-4 col-sm-4 col-lg-4">
                     <div id="first">
                         <ul class="sidebar-nav" ng-hide="hideSidebarItem">
                             <li class="sidebar-brand" style="color:#F5F7FA">
@@ -108,7 +110,7 @@
                 <!-- /#sidebar-wrapper -->
 
                 <!-- Page Content -->
-                <div id="page-content-wrapper" col-lg-9 col-md-9 col-sm-9 col-xs-9>
+                <div id="page-content-wrapper" class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-12">
@@ -127,9 +129,10 @@
 
         </div>
 
-        <footer>
-            footer
-        </footer>
+        <!-- <footer>
+          Designed and built with all the love in the world by NxtLifeTechnolgy. Maintained by the core team with the help of our contributors.
+          Code licensed MIT, docs CC BY 3.0.
+        </footer> -->
         <!-- Menu Toggle Script -->
         <script>
             $("#menu-toggle").click(function(e) {
