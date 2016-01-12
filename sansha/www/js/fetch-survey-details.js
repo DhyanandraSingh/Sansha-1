@@ -180,8 +180,8 @@
             });
           }
           prevFlag = 0;
-          $("#wrapper").toggleClass("toggled");
-          $scope.toggleHide = true;
+          // $("#wrapper").toggleClass("toggled");
+          // $scope.toggleHide = true;
         } else {
            $scope.viewQuestionTrue = false;
           // $scope.hideSubmitButton = false;
