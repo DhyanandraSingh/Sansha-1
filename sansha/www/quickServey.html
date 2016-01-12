@@ -158,7 +158,7 @@
                                 </div>
                               </div>
 
-                              <div id="content-wrapper" ng-show="viewQuestionTrue" class="row">
+                              <div ng-show="viewQuestionTrue" class="row">
                                 <span class="text-center col-lg-offset-1 col-lg-8 col-md-12 col-sm-12 col-xs-12">
                                   <h2 style="margin: 7% 0 7% 0%;"><span class="label">{{isQuestionTrue[inc].categoryName}}</span></h2>
                                 </span>
@@ -172,8 +172,8 @@
                                       </button>
                                   </div>
                                   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                    <form name="myForm">
-                                      <div ng-repeat="item in surveys[index].optionCategoryItemDto">
+                                    <form name="myForm" style="margin-left:14%;">
+                                      <div ng-repeat="item in surveys[index].optionCategoryItemDto" style="margin-bottom:2%;">
                                         <label class="text-center" style="cursor:pointer">
                                             <input type="radio" name="radio" id="{{item.itemId}}" ng-model="selections[index][inc].answer"
                                             ng-value="item.itemId" required> {{item.itemName}}
