@@ -85,6 +85,17 @@
         $scope.inc -= 1;
       }
 
+      $scope.addValue = function(val) {
+        $scope.selection = {
+          "surveyResultTestDtos" : $scope.selections,
+          "customerDetailDto" : val
+        }
+        console.log("SASa", $scope.selection)
+         $http.post("http://localhost:8080/TheSanshaWorld/sfcms/save-survey-result-data", $scope.selection).success(function(data, status) {
+           alert("data", data)
+         });
+       }
+
       var prevFlag = 0;
 
       $scope.previousQuestion = function() {
